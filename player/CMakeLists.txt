@@ -76,7 +76,7 @@ set(CEFSIMPLE_RESOURCES_SRCS
 #
 
 # Target executable names.
-set(CEF_TARGET "cefsimple")
+set(CEF_TARGET "player")
 if(OS_MACOSX)
   set(CEF_HELPER_TARGET "cefsimple_Helper")
   set(CEF_HELPER_OUTPUT_NAME "cefsimple Helper")
