@@ -41,6 +41,13 @@ plugs:
     interface: x11
 
 parts:
+  i3config:
+    plugin: dump
+    source: .
+    after: [desktop-gtk3, xwayland-kiosk-helper]
+    organize:
+      i3.config: etc/
+
   player:
     plugin: dump
     after: [desktop-gtk3, xwayland-kiosk-helper]
