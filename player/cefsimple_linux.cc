@@ -6,6 +6,8 @@
 
 #include <X11/Xlib.h>
 
+#include <iostream>
+
 #include "include/base/cef_logging.h"
 
 namespace {
@@ -32,6 +34,7 @@ int main(int argc, char* argv[]) {
   // Provide CEF with command-line arguments.
   CefMainArgs main_args(argc, argv);
 
+  std::cout << "Here is some custom code!" << std::endl;
   // CEF applications have multiple sub-processes (render, plugin, GPU, etc)
   // that share the same executable. This function checks the command-line and,
   // if this is a sub-process, executes the appropriate logic.
