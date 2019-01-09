@@ -1,0 +1,69 @@
+name: rise-vision-player
+version: '0.1'
+summary: Looking good has never been so easy!
+description: |
+  Use the Rise Vision Player snap to show your content with real-time updates.
+
+grade: devel
+confinement: devmode
+
+apps:
+  player:
+    command: desktop-launch xwayland-kiosk-launch player/Release/player
+    daemon: simple
+    environment:
+      XWAYLAND_I3_CONFIG_FILE: $SNAP/etc/i3.config
+    slots: [ x11 ]
+    plugs:
+      - browser-sandbox
+      - camera
+      - cups-control
+      - desktop
+      - gsettings
+      - hardware-observe
+      - home
+      - mount-observe
+      - network
+      - network-manager
+      - opengl
+      - password-manager-service
+      - pulseaudio
+      - removable-media
+      - screen-inhibit-control
+      - wayland
+      - x11-plug
+plugs:
+  browser-sandbox:
+    interface: browser-support
+    allow-sandbox: true
+
+  x11-plug:
+    interface: x11
+
+parts:
+  player:
+    plugin: dump
+    after: [desktop-gtk3, xwayland-kiosk-helper]
+    source: https://github.com/Rise-Vision/cef-player.git
+    build-packages:
+      - build-essential
+      - cmake
+      - python
+      - libgtk2.0-dev
+      - libgtkglext1-dev
+      - libxtst-dev
+      - libasound2-dev
+      - libatk-bridge2.0-dev
+      - libnss3
+      - libxss1
+      - libnspr4
+    override-build: |
+      apt update
+      env
+      mkdir build
+      cd build
+      cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+      make -j4
+      chmod 4555 player/Release/chrome-sandbox
+      strip -s player/Release/*.so player/Release/chrome-sandbox player/Release/player
+      cp -r player/Release $SNAPCRAFT_PART_INSTALL
