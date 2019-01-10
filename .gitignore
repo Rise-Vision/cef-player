@@ -54,3 +54,4 @@ Thumbs.db
 snap/*
 !snap/snapcraft.yaml
 !snap/i3.config
+!snap/player-launch

@@ -9,7 +9,7 @@ confinement: devmode
 
 apps:
   player:
-    command: desktop-launch xwayland-kiosk-launch player/Release/player
+    command: desktop-launch xwayland-kiosk-launch player-launch
     daemon: simple
     environment:
       XWAYLAND_I3_CONFIG_FILE: $SNAP/etc/i3.config
@@ -48,6 +48,13 @@ parts:
     organize:
       i3.config: etc/
 
+  launcher:
+    plugin: dump
+    source: .
+    after: [desktop-gtk3, xwayland-kiosk-helper]
+    organize:
+      player-launch: bin/
+
   player:
     plugin: dump
     after: [desktop-gtk3, xwayland-kiosk-helper]
@@ -73,4 +80,6 @@ parts:
       make -j4
       chmod 4555 player/Release/chrome-sandbox
       strip -s player/Release/*.so player/Release/chrome-sandbox player/Release/player
-      cp -r player/Release $SNAPCRAFT_PART_INSTALL
+      mkdir -p $SNAPCRAFT_PART_INSTALL/player
+      cp -r player/Release/* $SNAPCRAFT_PART_INSTALL/player
+      ls $SNAPCRAFT_PART_INSTALL

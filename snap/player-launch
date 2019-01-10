@@ -1,0 +1,4 @@
+#!/bin/bash
+"$SNAP/player/player" \
+  --noerrdialogs \
+  --no-sandbox
