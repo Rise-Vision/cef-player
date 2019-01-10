@@ -59,6 +59,10 @@ parts:
     plugin: dump
     after: [desktop-gtk3, xwayland-kiosk-helper]
     source: https://github.com/Rise-Vision/cef-player.git
+    stage-packages:
+      - libgl1-mesa-glx
+      - libnss3
+      - pulseaudio
     build-packages:
       - build-essential
       - cmake
